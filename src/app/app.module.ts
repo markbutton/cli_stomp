@@ -4,17 +4,23 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { RawDataComponent } from './components/rawdata/rawdata.component';
+import { StatusComponent } from './components/status/status.component';
+
+import { ConfigService } from './services/config/config.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RawDataComponent,
+    StatusComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [ConfigService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

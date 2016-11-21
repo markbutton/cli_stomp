@@ -1,14 +1,25 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async } from '@angular/core/testing';
+import { HttpModule } from '@angular/http';
+
 import { AppComponent } from './app.component';
+import { RawDataComponent } from './components/rawdata/rawdata.component';
+import { StatusComponent } from './components/status/status.component';
+import { ConfigService } from './services/config/config.service';
 
 describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        RawDataComponent,
+        StatusComponent
       ],
+	  imports: [
+        HttpModule
+      ],
+      providers: [ConfigService]
     });
   });
 
@@ -18,7 +29,7 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it(`should have as title 'app works!'`, async(() => {
+  it(`should have as title 'Stomp Demo Built with Angular-cli'`, async(() => {
     let fixture = TestBed.createComponent(AppComponent);
     let app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('app works!');
