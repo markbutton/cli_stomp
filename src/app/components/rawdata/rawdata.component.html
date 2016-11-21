@@ -1,7 +1,7 @@
 <app-status></app-status>
 
-<div id="raw">
-  <button class="btn btn-primary" (click)="onClick()">Send Test Message</button>
+<div id="raw" [class.dark-theme]="isDarkTheme">
+  <button md-raised-button color="primary" (click)="onClick()">Send Test Message</button>
   <h2>Messages</h2>
   <p>{{count}} total</p>
 
