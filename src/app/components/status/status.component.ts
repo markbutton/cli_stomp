@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { STOMPService, STOMPState } from '../../services/stomp';
 
@@ -7,7 +7,7 @@ import { STOMPService, STOMPState } from '../../services/stomp';
   templateUrl: './status.component.html',
   styleUrls: ['./status.component.css']
 })
-export class StatusComponent implements OnInit {
+export class StatusComponent implements OnInit, OnDestroy {
 
   private state: Observable<string>;
 
@@ -18,5 +18,9 @@ export class StatusComponent implements OnInit {
     console.log('Status init');
     this.state = this._stompService.state
       .map((state: number) => STOMPState[state]);
+  }
+
+    ngOnDestroy() {
+    this._stompService.disconnect();
   }
 }

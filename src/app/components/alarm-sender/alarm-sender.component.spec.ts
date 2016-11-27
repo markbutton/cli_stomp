@@ -4,7 +4,6 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
-import { RawDataComponent } from './rawdata.component';
 import { StatusComponent } from '../../components/status/status.component';
 import { STOMPService } from '../../services/stomp';
 import { ConfigService } from '../../services/config/config.service';

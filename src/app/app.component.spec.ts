@@ -4,7 +4,6 @@ import { TestBed, async } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { RawDataComponent } from './components/rawdata/rawdata.component';
 import { StatusComponent } from './components/status/status.component';
 import { ConfigService } from './services/config/config.service';
 
@@ -13,7 +12,6 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        RawDataComponent,
         StatusComponent
       ],
 	  imports: [

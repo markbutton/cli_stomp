@@ -1,0 +1,23 @@
+.badge{
+  position:absolute;
+  border-radius:444px;
+  color: white;
+  background:rgba(255,0,0,.80);
+  top: 15px;
+  height: 20px;
+  background-repeat: no-repeat;
+}
+
+.test{
+  text-align:center;
+  min-width:1em;  
+  line-height:1px;
+  vertical-align: text-top;
+    height: 50%;
+  top:10px;
+    background-position: right bottom;
+  background-size: 20px 20px;
+  right:1%;
+  top:60%;
+  padding:1em;
+}

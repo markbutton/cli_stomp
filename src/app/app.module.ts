@@ -4,27 +4,33 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 
-import { AppComponent, DialogContent } from './app.component';
-import { RawDataComponent } from './components/rawdata/rawdata.component';
+import { AppComponent } from './app.component';
+import { AlarmSenderComponent } from './components/alarm-sender/alarm-sender.component';
 import { StatusComponent } from './components/status/status.component';
-
+import { AlarmComponent } from './components/alarm/alarm.component';
+import { AlarmsComponent } from './components/alarms/alarms.component';
 import { ConfigService } from './services/config/config.service';
+import { DemoComponent } from './components/demo/demo.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DialogContent,
-    RawDataComponent,
-    StatusComponent
+    AlarmSenderComponent,
+    StatusComponent,
+    AlarmComponent,
+    AlarmsComponent,
+    DemoComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    AppRoutingModule,
     MaterialModule.forRoot()
   ],
   providers: [ConfigService],
-  entryComponents: [DialogContent],
+  entryComponents: [AlarmsComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

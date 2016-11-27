@@ -1,0 +1,19 @@
+<p>Alerts</p>
+    <p>
+      <label>
+        This is a text box inside of a dialog.
+        <input #dialogInput>
+      </label>
+    </p>
+
+<md-list>
+  <md-list-item *ngFor="let m of mq">
+    <p md-line>
+      <span> {{m}} </span>
+    </p>
+  </md-list-item>
+</md-list>
+
+
+
+    <p> <button md-button (click)="dialogRef.close(dialogInput.value)">CLOSE</button> </p>

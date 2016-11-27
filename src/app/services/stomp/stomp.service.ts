@@ -4,6 +4,7 @@ import { Subject } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { StompConfig } from './';
+import { Alarm } from '../../models/alarm';
 
 import * as Stomp from 'stompjs';
 

@@ -2,34 +2,50 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Message } from 'stompjs';
 
+import { Alarm } from '../../models/alarm';
 import { STOMPService } from '../../services/stomp';
 import { ConfigService } from '../../services/config/config.service';
 
+import {MdDialog, MdDialogRef, MdDialogContainer, MdDialogConfig} from '@angular/material';
+
 @Component({
-  selector: 'app-rawdata',
-  templateUrl: './rawdata.component.html',
-  styleUrls: ['./rawdata.component.css'],
+  selector: 'app-alarms',
+  templateUrl: './alarms.component.html',
+  styleUrls: ['./alarms.component.css'],
   providers: [STOMPService]
 })
-export class RawDataComponent implements OnInit, OnDestroy {
+export class AlarmsComponent implements OnInit, OnDestroy {
+
+  public dialogRef: MdDialogRef<AlarmsComponent>;
 
   // Stream of messages
   public messages: Observable<Message>;
 
   // Array of historic message (bodies)
-  public mq: Array<string> = [];
+  public alarms: Alarm[]  = [];
+
+  // Solected alarm
+  public selectedAlarm: Alarm;
+
+  private _alarm: Alarm;
+
+  private _alarmJson: String;
 
   // A count of messages received
   public count: number = 0;
 
   private _counter: number = 1;
 
+  // Dialog
+  public lastDialogResult: string;
+
+
   /** Constructor */
   constructor(private _stompService: STOMPService,
     private _configService: ConfigService) { }
 
   ngOnInit() {
-    // Get configuration from config service...
+        // Get configuration from config service...
     this._configService.getConfig('api/config.json').then(
       config => {
         // ... then pass it to (and connect) STOMP:
@@ -41,15 +57,6 @@ export class RawDataComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this._stompService.disconnect();
-  }
-
-  public onClick() {
-    let _getRandomInt = (min, max) => {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    };
-    this._stompService.publish(`{ type: "Test Message", data: [ ${this._counter}, ${_getRandomInt(1, 100)}, ${_getRandomInt(1, 100)}] }`);
-
-    this._counter++;
   }
 
   /** Callback on_connect to queue */
@@ -67,7 +74,18 @@ export class RawDataComponent implements OnInit, OnDestroy {
   public on_next = (message: Message) => {
 
     // Store message in "historic messages" queue
-    this.mq.push(message.body + '\n');
+    //this.mq.push(message.body + '\n');
+
+    // Message body json string
+    //this._alarmJson = JSON.parse(message.body);
+
+    // Message Body JSon
+    this._alarm = JSON.parse(message.body);
+    console.log(this._alarm);
+
+
+    // Store alarms in "historic alarms" queue
+    this.alarms.push(this._alarm);
 
     // Count it
     this.count++;
@@ -75,4 +93,5 @@ export class RawDataComponent implements OnInit, OnDestroy {
     // Log it to the console
     console.log(this.messages);
   }
+
 }

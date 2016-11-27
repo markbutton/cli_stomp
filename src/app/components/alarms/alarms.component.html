@@ -1,0 +1,29 @@
+  <div id="raw" [class.dark-theme]="isDarkTheme">
+<div class="app-content">
+
+<md-card>    
+   <h2 class="app-header">STOMP Example App</h2>
+</md-card> 
+
+<app-alarm-sender></app-alarm-sender>
+   
+   <md-card>
+    <h2 class="app-header">Messages</h2>
+  <p>{{count}} total</p>
+  <h3 *ngIf="count">Latest:</h3>
+  <pre>{{messages | async}}</pre>
+ </md-card>
+   
+    <md-card>
+    
+    <p>Alerts</p>
+
+      <md-list class="app-list">
+        <md-list-item *ngFor="let alarm of alarms">
+          <p md-line class="demo-secondary-text">{{alarm.id}} {{alarm.message}}</p>
+        </md-list-item>
+      </md-list>
+    
+    <p> <button md-button (click)="dialogRef.close(dialogInput.value)">CLOSE</button> </p>
+
+    </md-card>
