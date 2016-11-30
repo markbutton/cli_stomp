@@ -1,19 +1,12 @@
-<p>Alerts</p>
-    <p>
-      <label>
-        This is a text box inside of a dialog.
-        <input #dialogInput>
-      </label>
-    </p>
+<h2 class="app-header">
+  Alerts</h2>
+<ul class="alarms">
+  <li *ngFor="let alarm of alarms" (click)="onSelect(alarm)" [class.selected]="alarm === selectedAlarm">
+    <span class="alarm-element">
+            <span class="badge">{{alarm.id}}</span> {{alarm.message}}
+    </span>
+    <button class="delete-button" (click)="deleteAlarm(alarm, $event)">Delete</button>
+  </li>
+</ul>
 
-<md-list>
-  <md-list-item *ngFor="let m of mq">
-    <p md-line>
-      <span> {{m}} </span>
-    </p>
-  </md-list-item>
-</md-list>
-
-
-
-    <p> <button md-button (click)="dialogRef.close(dialogInput.value)">CLOSE</button> </p>
+<p> <button md-button (click)="dialogRef.close(dialogInput.value)">CLOSE</button> </p>

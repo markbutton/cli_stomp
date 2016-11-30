@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Message } from 'stompjs';
 
@@ -11,7 +11,7 @@ import { ConfigService } from '../../services/config/config.service';
   selector: 'app-alarms',
   templateUrl: './alarms.component.html',
   styleUrls: ['./alarms.component.css'],
-  providers: [STOMPService, AlarmCountService]
+  providers: [STOMPService]
 })
 export class AlarmsComponent implements OnInit, OnDestroy {
 
@@ -41,6 +41,7 @@ export class AlarmsComponent implements OnInit, OnDestroy {
     private _configService: ConfigService, private _alarmCountService: AlarmCountService) { }
 
   ngOnInit() {
+    // Subscribe to the AlarmCountService
     this.count = this._alarmCountService.count;
     // Get configuration from config service...
     this._configService.getConfig('api/config.json').then(
@@ -53,10 +54,11 @@ export class AlarmsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    // Disconnect from the STOMP service when this class is destroyed
     this._stompService.disconnect();
   }
 
-  /** Callback on_connect to queue */
+  /** Callback on_connect to queue **/
   public on_connect = () => {
 
     // Store local reference to Observable
@@ -67,7 +69,7 @@ export class AlarmsComponent implements OnInit, OnDestroy {
     this.messages.subscribe(this.on_next);
   }
 
-  /** Consume a message from the _stompService */
+  /** Consume a message from the _stompService **/
   public on_next = (message: Message) => {
 
     // Message Body JSon
@@ -83,6 +85,7 @@ export class AlarmsComponent implements OnInit, OnDestroy {
     // Alaram Count Observable and Event
     this._alarmCountService.changeCount(this._count);
 
+    // Not needed for Observable demo
     this.counterChange.emit({
       value: this._count
     });

@@ -11,7 +11,7 @@
 
     <span class="app-toolbar-filler"></span>
 
-    <app-alarm [count]='myValue'></app-alarm>
+    <app-alarm [alarmCount]='myValue | async'></app-alarm>
 
     <button md-button (click)="isDarkTheme = !isDarkTheme">THEME</button>
   </md-toolbar>

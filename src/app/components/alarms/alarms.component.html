@@ -8,7 +8,7 @@
     <app-alarm-sender></app-alarm-sender>
 
     <md-card>
-      <p>Alerts</p>
+      <h2 class="app-header">Alerts</h2>
       <ul class="alarms">
         <li *ngFor="let alarm of alarms" (click)="onSelect(alarm)" [class.selected]="alarm === selectedAlarm">
           <span class="alarm-element">
@@ -20,9 +20,7 @@
     </md-card>
 
     <md-card>
-      <h2 class="app-header">Messages</h2>
-      <p>{{count | async}} total</p>
-      <h3 *ngIf="alarmCount">Latest:</h3>
+      <h2 class="app-header">Latest Messages</h2>
       <pre>{{messages | async}}</pre>
     </md-card>
 

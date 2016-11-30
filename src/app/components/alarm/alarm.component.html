@@ -1,6 +1,4 @@
-<span class="badge" background-color="accent">{{count}}</span>
+<span class="badge" background-color="accent" *ngIf="alarmCount">{{alarmCount}}</span>
     <button md-icon-button (click)="openDialog()">
         <md-icon>notifications</md-icon>
 </button>
-
-<!-- _alarmCountService -->
