@@ -1,29 +1,30 @@
-  <div id="raw" [class.dark-theme]="isDarkTheme">
-<div class="app-content">
+<div id="raw" [class.dark-theme]="isDarkTheme">
+  <div class="app-content">
 
-<md-card>    
-   <h2 class="app-header">STOMP Example App</h2>
-</md-card> 
-
-<app-alarm-sender></app-alarm-sender>
-   
-   <md-card>
-    <h2 class="app-header">Messages</h2>
-  <p>{{count}} total</p>
-  <h3 *ngIf="count">Latest:</h3>
-  <pre>{{messages | async}}</pre>
- </md-card>
-   
     <md-card>
-    
-    <p>Alerts</p>
-
-      <md-list class="app-list">
-        <md-list-item *ngFor="let alarm of alarms">
-          <p md-line class="demo-secondary-text">{{alarm.id}} {{alarm.message}}</p>
-        </md-list-item>
-      </md-list>
-    
-    <p> <button md-button (click)="dialogRef.close(dialogInput.value)">CLOSE</button> </p>
-
+      <h2 class="app-header">STOMP Example App</h2>
     </md-card>
+
+    <app-alarm-sender></app-alarm-sender>
+
+    <md-card>
+      <p>Alerts</p>
+      <ul class="alarms">
+        <li *ngFor="let alarm of alarms" (click)="onSelect(alarm)" [class.selected]="alarm === selectedAlarm">
+          <span class="alarm-element">
+            <span class="badge">{{alarm.id}}</span> {{alarm.message}}
+          </span>
+          <button class="delete-button" (click)="deleteAlarm(alarm, $event)">Delete</button>
+        </li>
+      </ul>
+    </md-card>
+
+    <md-card>
+      <h2 class="app-header">Messages</h2>
+      <p>{{count | async}} total</p>
+      <h3 *ngIf="alarmCount">Latest:</h3>
+      <pre>{{messages | async}}</pre>
+    </md-card>
+
+  </div>
+</div>

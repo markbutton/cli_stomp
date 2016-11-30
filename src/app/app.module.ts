@@ -10,6 +10,7 @@ import { StatusComponent } from './components/status/status.component';
 import { AlarmComponent } from './components/alarm/alarm.component';
 import { AlarmsComponent } from './components/alarms/alarms.component';
 import { ConfigService } from './services/config/config.service';
+import { AlarmCountService } from './services/alarm/alarm-count.service';
 import { DemoComponent } from './components/demo/demo.component';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -29,7 +30,7 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     MaterialModule.forRoot()
   ],
-  providers: [ConfigService],
+  providers: [ConfigService, AlarmCountService],
   entryComponents: [AlarmsComponent],
   bootstrap: [AppComponent]
 })

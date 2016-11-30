@@ -1,51 +1,48 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Message } from 'stompjs';
 
 import { Alarm } from '../../models/alarm';
+import { AlarmCountService } from '../../services/alarm/alarm-count.service';
 import { STOMPService } from '../../services/stomp';
 import { ConfigService } from '../../services/config/config.service';
-
-import {MdDialog, MdDialogRef, MdDialogContainer, MdDialogConfig} from '@angular/material';
 
 @Component({
   selector: 'app-alarms',
   templateUrl: './alarms.component.html',
   styleUrls: ['./alarms.component.css'],
-  providers: [STOMPService]
+  providers: [STOMPService, AlarmCountService]
 })
 export class AlarmsComponent implements OnInit, OnDestroy {
 
-  public dialogRef: MdDialogRef<AlarmsComponent>;
+  @Output() counterChange = new EventEmitter();
 
   // Stream of messages
   public messages: Observable<Message>;
 
+  // Stream of count
+  private count: Observable<number>;
+
   // Array of historic message (bodies)
-  public alarms: Alarm[]  = [];
+  public alarms: Alarm[] = [];
 
   // Solected alarm
   public selectedAlarm: Alarm;
 
+  // Local alarm variable
   private _alarm: Alarm;
 
-  private _alarmJson: String;
-
-  // A count of messages received
-  public count: number = 0;
-
-  private _counter: number = 1;
-
-  // Dialog
-  public lastDialogResult: string;
+  // Local count variable
+  private _count: number = 0;
 
 
-  /** Constructor */
+  /** Constructor **/
   constructor(private _stompService: STOMPService,
-    private _configService: ConfigService) { }
+    private _configService: ConfigService, private _alarmCountService: AlarmCountService) { }
 
   ngOnInit() {
-        // Get configuration from config service...
+    this.count = this._alarmCountService.count;
+    // Get configuration from config service...
     this._configService.getConfig('api/config.json').then(
       config => {
         // ... then pass it to (and connect) STOMP:
@@ -73,25 +70,38 @@ export class AlarmsComponent implements OnInit, OnDestroy {
   /** Consume a message from the _stompService */
   public on_next = (message: Message) => {
 
-    // Store message in "historic messages" queue
-    //this.mq.push(message.body + '\n');
-
-    // Message body json string
-    //this._alarmJson = JSON.parse(message.body);
-
     // Message Body JSon
     this._alarm = JSON.parse(message.body);
-    console.log(this._alarm);
-
+    // console.log(this._alarm);
 
     // Store alarms in "historic alarms" queue
     this.alarms.push(this._alarm);
 
     // Count it
-    this.count++;
+    this._count++;
+
+    // Alaram Count Observable and Event
+    this._alarmCountService.changeCount(this._count);
+
+    this.counterChange.emit({
+      value: this._count
+    });
 
     // Log it to the console
     console.log(this.messages);
   }
 
+  // Delete alarm from your local que
+  deleteAlarm(alarm: Alarm, event: any): void {
+    event.stopPropagation();
+    let index = this.alarms.indexOf(alarm);
+    this.alarms.splice(index, 1);
+    this._count--;
+    this._alarmCountService.changeCount(this._count);
+  }
+
+  // Get selected alarm from list
+  onSelect(alarm: Alarm): void {
+    this.selectedAlarm = alarm;
+  }
 }

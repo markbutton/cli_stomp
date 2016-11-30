@@ -1,38 +1,48 @@
-import { Component, OnInit, OnDestroy, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewContainerRef, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import { AlarmCountService } from '../../services/alarm/alarm-count.service';
 
-import { AlarmsComponent } from '../alarms/alarms.component';
-
-import {MdDialog, MdDialogRef, MdDialogContainer, MdDialogConfig} from '@angular/material';
+import { MdDialog, MdDialogRef, MdDialogContainer, MdDialogConfig } from '@angular/material';
 
 @Component({
   selector: 'app-alarm',
   templateUrl: './alarm.component.html',
-  styleUrls: ['./alarm.component.css']
+  styleUrls: ['./alarm.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AlarmComponent implements  OnInit, OnDestroy {
+export class AlarmComponent implements OnInit, OnDestroy {
+   @Input() count: number;
 
-  // A count of messages received
-  public count: number = 0;
+  // Stream of count
+  // public count: Observable<number>;
 
-  // Dialog
+  // subscription
+  public subscription: Subscription;
+
   public lastDialogResult: string;
 
 
-    /** Constructor */
-  constructor( private _dialog: MdDialog) { }
+  /* Constructor */
+  constructor() { }
 
   ngOnInit() {
-
+    //this.subscription = this._alarmCountService.count.subscribe(this.on_success, this.on_failure, this.on_complete);
+    //this.count = this._alarmCountService.count;
   }
 
   ngOnDestroy() {
-
+    // prevent memory leak when component is destroyed
+    //this.subscription.unsubscribe();
   }
 
-  openDialog() {
-    let dialogRef = this._dialog.open(AlarmsComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      this.lastDialogResult = result;
-    })
-  }
+
+  /*
+   openDialog() {
+     let dialogRef = this._dialog.open(AlarmsComponent);
+     dialogRef.afterClosed().subscribe(result => {
+       this.lastDialogResult = result;
+     });
+   }
+   */
 }

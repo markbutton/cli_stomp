@@ -11,7 +11,7 @@
 
     <span class="app-toolbar-filler"></span>
 
-    <app-alarm></app-alarm>
+    <app-alarm [count]='myValue'></app-alarm>
 
     <button md-button (click)="isDarkTheme = !isDarkTheme">THEME</button>
   </md-toolbar>
@@ -32,3 +32,4 @@
   </md-card>
 
   <router-outlet></router-outlet>
+</md-sidenav-layout>
