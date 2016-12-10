@@ -7,17 +7,17 @@
 
     <app-alarm-sender></app-alarm-sender>
 
-    <md-card>
+    <!-- <md-card>
       <h2 class="app-header">Alerts</h2>
       <ul class="alarms">
-        <li *ngFor="let alarm of alarms" (click)="onSelect(alarm)" [class.selected]="alarm === selectedAlarm">
+        <li *ngFor="let alarm of _alarmStore.alarms | async" (click)="onSelect(alarm)" [class.selected]="alarm === selectedAlarm">
           <span class="alarm-element">
             <span class="badge">{{alarm.id}}</span> {{alarm.message}}
           </span>
           <button class="delete-button" (click)="deleteAlarm(alarm, $event)">Delete</button>
         </li>
       </ul>
-    </md-card>
+    </md-card> -->
 
     <md-card>
       <h2 class="app-header">Latest Messages</h2>

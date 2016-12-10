@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
+import { AppRoutingModule } from './app-routing.module';
+import { DropdownModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { AppComponent } from './app.component';
 import { AlarmSenderComponent } from './components/alarm-sender/alarm-sender.component';
@@ -10,9 +12,8 @@ import { StatusComponent } from './components/status/status.component';
 import { AlarmComponent } from './components/alarm/alarm.component';
 import { AlarmsComponent } from './components/alarms/alarms.component';
 import { ConfigService } from './services/config/config.service';
-import { AlarmCountService } from './services/alarm/alarm-count.service';
+import { AlarmStore } from './store/alarm.store';
 import { DemoComponent } from './components/demo/demo.component';
-import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -28,9 +29,10 @@ import { AppRoutingModule } from './app-routing.module';
     FormsModule,
     HttpModule,
     AppRoutingModule,
+    DropdownModule,
     MaterialModule.forRoot()
   ],
-  providers: [ConfigService, AlarmCountService],
+  providers: [ConfigService, AlarmStore],
   entryComponents: [AlarmsComponent],
   bootstrap: [AppComponent]
 })

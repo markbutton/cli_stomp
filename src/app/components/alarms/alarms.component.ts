@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Message } from 'stompjs';
 
 import { Alarm } from '../../models/alarm';
-import { AlarmCountService } from '../../services/alarm/alarm-count.service';
+import { AlarmStore } from '../../store/alarm.store';
 import { STOMPService } from '../../services/stomp';
 import { ConfigService } from '../../services/config/config.service';
 
@@ -15,34 +15,25 @@ import { ConfigService } from '../../services/config/config.service';
 })
 export class AlarmsComponent implements OnInit, OnDestroy {
 
-  @Output() counterChange = new EventEmitter();
-
   // Stream of messages
   public messages: Observable<Message>;
 
   // Stream of count
-  private count: Observable<number>;
+  public alarms: Observable<any>;
 
-  // Array of historic message (bodies)
-  public alarms: Alarm[] = [];
-
-  // Solected alarm
+  // Selected alarm
   public selectedAlarm: Alarm;
 
   // Local alarm variable
   private _alarm: Alarm;
 
-  // Local count variable
-  private _count: number = 0;
-
-
   /** Constructor **/
   constructor(private _stompService: STOMPService,
-    private _configService: ConfigService, private _alarmCountService: AlarmCountService) { }
+    private _configService: ConfigService, private _alarmStore: AlarmStore) { }
 
   ngOnInit() {
-    // Subscribe to the AlarmCountService
-    this.count = this._alarmCountService.count;
+    // Subscribe to the Model
+    this.alarms = this._alarmStore.alarms;
     // Get configuration from config service...
     this._configService.getConfig('api/config.json').then(
       config => {
@@ -76,31 +67,11 @@ export class AlarmsComponent implements OnInit, OnDestroy {
     this._alarm = JSON.parse(message.body);
     // console.log(this._alarm);
 
-    // Store alarms in "historic alarms" queue
-    this.alarms.push(this._alarm);
-
-    // Count it
-    this._count++;
-
-    // Alaram Count Observable and Event
-    this._alarmCountService.changeCount(this._count);
-
-    // Not needed for Observable demo
-    this.counterChange.emit({
-      value: this._count
-    });
+    // Store alarms in "Alarm Store"
+    this._alarmStore.addAlarm(this._alarm);
 
     // Log it to the console
     console.log(this.messages);
-  }
-
-  // Delete alarm from your local que
-  deleteAlarm(alarm: Alarm, event: any): void {
-    event.stopPropagation();
-    let index = this.alarms.indexOf(alarm);
-    this.alarms.splice(index, 1);
-    this._count--;
-    this._alarmCountService.changeCount(this._count);
   }
 
   // Get selected alarm from list

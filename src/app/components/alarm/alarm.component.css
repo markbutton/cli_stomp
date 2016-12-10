@@ -7,3 +7,63 @@
   height: 20px;
   background-repeat: no-repeat;
 }
+
+.alarms {
+  margin: 0 0 1em 0;
+  list-style-type: none;
+  padding: 0;
+  width: 25em; 
+  left: -25em;
+}
+.alarms li {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  background-color: #EEE;
+  margin: .5em;
+  padding: 0 0;
+  height: 2.25em;
+  border-radius: 4px;
+  color: black;
+}
+.alarms li:hover {
+  color: #607D8B;
+  color: rgb(0,120,215);
+  background-color: #DDD;
+  left: .1em;
+}
+.alarms li.selected:hover {
+  /*background-color: #BBD8DC !important;*/
+  color: white;
+}
+.alarms .text {
+  position: relative;
+  top: -3px;
+}
+.alarms .badge {
+  display: inline-block;
+  font-size: small;
+  color: white;
+  padding: 0.5em 0.7em 0 0.5em;
+  background-color: #660099;
+  line-height: 1em;
+  position: relative;
+  left: 0px;
+  top: 0px;
+  height: 2.4em;
+  margin-right: .8em;
+  border-radius: 4px 0 0 4px;
+}
+
+button.delete-button {
+  float:right;
+  font-family: Arial;
+  background-color: #eee;
+  background-color: #FF6600;
+  color:white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
