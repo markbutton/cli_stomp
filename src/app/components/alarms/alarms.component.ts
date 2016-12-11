@@ -1,11 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Message } from 'stompjs';
+import { ToasterService } from 'angular2-toaster/angular2-toaster';
 
 import { Alarm } from '../../models/alarm';
 import { AlarmStore } from '../../store/alarm.store';
 import { STOMPService } from '../../services/stomp';
 import { ConfigService } from '../../services/config/config.service';
+
 
 @Component({
   selector: 'app-alarms',
@@ -29,7 +31,9 @@ export class AlarmsComponent implements OnInit, OnDestroy {
 
   /** Constructor **/
   constructor(private _stompService: STOMPService,
-    private _configService: ConfigService, private _alarmStore: AlarmStore) { }
+    private _configService: ConfigService, 
+    private _alarmStore: AlarmStore, 
+    private _toasterService: ToasterService) { }
 
   ngOnInit() {
     // Subscribe to the Model
@@ -70,12 +74,15 @@ export class AlarmsComponent implements OnInit, OnDestroy {
     // Store alarms in "Alarm Store"
     this._alarmStore.addAlarm(this._alarm);
 
+    // Pop the toaster
+    this.popToast(this._alarm);
+
     // Log it to the console
     console.log(this.messages);
   }
 
-  // Get selected alarm from list
-  onSelect(alarm: Alarm): void {
-    this.selectedAlarm = alarm;
+    public popToast(alarm: Alarm):void {
+      this._toasterService.pop(alarm.type, alarm.title, alarm.message);
   }
+
 }

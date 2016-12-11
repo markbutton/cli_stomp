@@ -12,7 +12,7 @@
         "favicon.ico"
       ],
       "index": "index.html",
-      "main": "main.ts",
+      "main": "main-polymer.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.json",
       "prefix": "app",
@@ -21,7 +21,7 @@
         "styles.css",
         "stomp-theme.scss"
       ],
-      "scripts": [],
+      "scripts": [ "assets/bower_components/webcomponentsjs/webcomponents.min.js" ],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",

@@ -1,30 +1,16 @@
-<div id="raw" [class.dark-theme]="isDarkTheme">
-  <div class="app-content">
+<toaster-container></toaster-container>
 
-    <md-card>
-      <h2 class="app-header">STOMP Example App</h2>
-    </md-card>
+<div class="app-content" [class.dark-theme]="isDarkTheme">
 
-    <app-alarm-sender></app-alarm-sender>
+  <md-card>
+    <h2 class="app-header">STOMP Example App</h2>
+  </md-card>
 
-    <paper-toast text="Hello world!" opened></paper-toast>
+  <app-alarm-sender></app-alarm-sender>
 
-    <!-- <md-card>
-      <h2 class="app-header">Alerts</h2>
-      <ul class="alarms">
-        <li *ngFor="let alarm of _alarmStore.alarms | async" (click)="onSelect(alarm)" [class.selected]="alarm === selectedAlarm">
-          <span class="alarm-element">
-            <span class="badge">{{alarm.id}}</span> {{alarm.message}}
-          </span>
-          <button class="delete-button" (click)="deleteAlarm(alarm, $event)">Delete</button>
-        </li>
-      </ul>
-    </md-card> -->
+  <md-card>
+    <h2 class="app-header">Latest Messages</h2>
+    <pre>{{messages | async}}</pre>
+  </md-card>
 
-    <md-card>
-      <h2 class="app-header">Latest Messages</h2>
-      <pre>{{messages | async}}</pre>
-    </md-card>
-
-  </div>
 </div>

@@ -9,13 +9,9 @@
   <ul class="alarms" dropdownMenu role="menu" >
         <li  role="menuitem" *ngFor="let alarm of _alarmStore.alarms | async" (click)="onSelect(alarm)" [class.selected]="alarm === selectedAlarm">
           <span class="alarm-element">
-            <span class="badge">{{alarm.id}}</span> {{alarm.message}}
+            <span class="badge">{{alarm.id}}</span> {{alarm.title}}
           </span>
           <button class="delete-button" (click)="deleteAlarm(alarm, $event)">Delete</button>
         </li>
   </ul>
 </div>
-
-<!-- <md-menu x-position="before" y-position="below" #menu="mdMenu">
-md-menu-origin [md-menu-trigger-for]="menu"
-</md-menu> -->

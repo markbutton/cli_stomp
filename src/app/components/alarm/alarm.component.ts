@@ -10,11 +10,11 @@ import { Alarm } from '../../models/alarm';
     styleUrls: ['./alarm.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class AlarmComponent {
 
     public disabled: boolean = false;
     public status: { isopen: boolean } = { isopen: false };
+    public selectedAlarm: Alarm;
 
     constructor(private _alarmStore: AlarmStore) { }
 
@@ -36,6 +36,11 @@ export class AlarmComponent {
     public deleteAlarm(alarm: Alarm, event: any): void {
         event.stopPropagation();
         this._alarmStore.deleteAlarm(alarm);
-  }
+    }
+
+    // Get selected alarm from list
+    public onSelect(alarm: Alarm): void {
+        this.selectedAlarm = alarm;
+    }
 
 }
