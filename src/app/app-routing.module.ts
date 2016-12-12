@@ -2,7 +2,7 @@ import { NgModule }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { DemoComponent }      from './components/demo/demo.component';
-import { AlarmsComponent }   from './components/alarms/alarms.component';
+import { AlertsComponent }   from './components/alerts/alerts.component';
 
 const routes: Routes = [
     {
@@ -11,12 +11,12 @@ const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: '/alarms',
+        redirectTo: '/alerts',
         pathMatch: 'full'
     },
     {
-        path: 'alarms',
-        component: AlarmsComponent
+        path: 'alerts',
+        component: AlertsComponent
     },
 ];
 
@@ -26,4 +26,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 
-export const routedComponents = [AlarmsComponent, DemoComponent];
+export const routedComponents = [AlertsComponent, DemoComponent];

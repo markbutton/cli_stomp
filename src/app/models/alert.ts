@@ -1,4 +1,4 @@
-export class Alarm {
+export class Alert {
   id: number;
   type: string;
   title: string;

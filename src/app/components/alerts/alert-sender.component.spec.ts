@@ -8,14 +8,14 @@ import { StatusComponent } from '../../components/status/status.component';
 import { STOMPService } from '../../services/stomp';
 import { ConfigService } from '../../services/config/config.service';
 
-describe('RawDataComponent', () => {
-  let component: RawDataComponent;
-  let fixture: ComponentFixture<RawDataComponent>;
+describe('AlertSenderComponent', () => {
+  let component: AlertSenderComponent;
+  let fixture: ComponentFixture<AlertSenderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        RawDataComponent,
+        AlertSenderComponent,
         StatusComponent
       ],
       imports: [
@@ -30,7 +30,7 @@ describe('RawDataComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RawDataComponent);
+    fixture = TestBed.createComponent(AlertSenderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -3,24 +3,24 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { STOMPService } from '../../services/stomp';
 import { ConfigService } from '../../services/config/config.service';
 
-import { ALARMS } from '../../../data/mock-alarms';
-import { Alarm } from '../../models/alarm';
+import { ALERTS } from '../../../data/mock-alerts';
+import { Alert } from '../../models/alert';
 
 @Component({
-  selector: 'app-alarm-sender',
-  templateUrl: './alarm-sender.component.html',
-  styleUrls: ['./alarm-sender.component.css'],
+  selector: 'app-alert-sender',
+  templateUrl: './alert-sender.component.html',
+  styleUrls: ['./alert-sender.component.css'],
   providers: [STOMPService]
 })
 
-export class AlarmSenderComponent implements OnInit, OnDestroy {
+export class AlertSenderComponent implements OnInit, OnDestroy {
 
   // A count of messages received
   private _counter: number = 1;
 
   // A copy of the mock data
-  private _mockAlarms: Alarm[] = ALARMS;
-  private _mockAlarm: Alarm;
+  private _mockAlerts: Alert[] = ALERTS;
+  private _mockAlert: Alert;
 
   /** Constructor */
   constructor(private _stompService: STOMPService,
@@ -42,8 +42,8 @@ export class AlarmSenderComponent implements OnInit, OnDestroy {
   }
 
   public onClick() {
-    this._mockAlarm = this._mockAlarms.find(alarm => alarm.id === this._counter);
-    this._stompService.publish(JSON.stringify(this._mockAlarm));
+    this._mockAlert = this._mockAlerts.find(alert => alert.id === this._counter);
+    this._stompService.publish(JSON.stringify(this._mockAlert));
     this._counter++;
   }
 

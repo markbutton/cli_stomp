@@ -1,6 +1,6 @@
-import { Alarm } from '../app/models/alarm';
+import { Alert } from '../app/models/alert';
 
-export var ALARMS: Alarm[] = [
+export var ALERTS: Alert[] = [
 	{ 'id': 1, 'type': 'error', 'title': 'System Outage', 'message': 'System Outage at 4:00PM' },
 	{ 'id': 2, 'type': 'warning', 'title': 'System Notice', 'message': 'Internet speed slow' },
 	{ 'id': 3, 'type': 'success', 'title': 'Company Memo', 'message': 'Corned Beef Lunch' },

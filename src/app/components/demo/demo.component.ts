@@ -27,15 +27,15 @@ export class DemoComponent {
   }
 
   openDialog() {
-    let dialogRef = this._dialog.open(DialogContent);
+    // let dialogRef = this._dialog.open(DialogContent);
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.lastDialogResult = result;
-    })
+    // dialogRef.afterClosed().subscribe(result => {
+    //  this.lastDialogResult = result;
+    //})
   }
 
   showSnackbar() {
-    this._snackbar.open('YUM SNACKS', 'CHEW');
+    // this._snackbar.open('YUM SNACKS', 'CHEW');
   }
 }
 

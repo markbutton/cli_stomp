@@ -3,41 +3,41 @@ import { Observable } from 'rxjs/Observable';
 import { Message } from 'stompjs';
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
 
-import { Alarm } from '../../models/alarm';
-import { AlarmStore } from '../../store/alarm.store';
+import { Alert } from '../../models/alert';
+import { AlertStore } from '../../store/alert.store';
 import { STOMPService } from '../../services/stomp';
 import { ConfigService } from '../../services/config/config.service';
 
 
 @Component({
-  selector: 'app-alarms',
-  templateUrl: './alarms.component.html',
-  styleUrls: ['./alarms.component.css'],
+  selector: 'app-alerts',
+  templateUrl: './alerts.component.html',
+  styleUrls: ['./alerts.component.css'],
   providers: [STOMPService]
 })
-export class AlarmsComponent implements OnInit, OnDestroy {
+export class AlertsComponent implements OnInit, OnDestroy {
 
   // Stream of messages
   public messages: Observable<Message>;
 
   // Stream of count
-  public alarms: Observable<any>;
+  public alerts: Observable<any>;
 
-  // Selected alarm
-  public selectedAlarm: Alarm;
+  // Selected alert
+  public selectedAlert: Alert;
 
-  // Local alarm variable
-  private _alarm: Alarm;
+  // Local alert variable
+  private _alert: Alert;
 
   /** Constructor **/
   constructor(private _stompService: STOMPService,
-    private _configService: ConfigService, 
-    private _alarmStore: AlarmStore, 
+    private _configService: ConfigService,
+    private _alertStore: AlertStore,
     private _toasterService: ToasterService) { }
 
   ngOnInit() {
     // Subscribe to the Model
-    this.alarms = this._alarmStore.alarms;
+    this.alerts = this._alertStore.alerts;
     // Get configuration from config service...
     this._configService.getConfig('api/config.json').then(
       config => {
@@ -68,21 +68,21 @@ export class AlarmsComponent implements OnInit, OnDestroy {
   public on_next = (message: Message) => {
 
     // Message Body JSon
-    this._alarm = JSON.parse(message.body);
-    // console.log(this._alarm);
+    this._alert = JSON.parse(message.body);
 
-    // Store alarms in "Alarm Store"
-    this._alarmStore.addAlarm(this._alarm);
+    // Store alerts in "Alert Store"
+    this._alertStore.addAlert(this._alert);
 
     // Pop the toaster
-    this.popToast(this._alarm);
+    this.popToast(this._alert);
 
     // Log it to the console
     console.log(this.messages);
   }
 
-    public popToast(alarm: Alarm):void {
-      this._toasterService.pop(alarm.type, alarm.title, alarm.message);
+  /* Open the alert with a toaster */
+  public popToast(alert: Alert): void {
+    this._toasterService.pop(alert.type, alert.title, alert.message);
   }
 
 }
