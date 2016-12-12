@@ -1,11 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { DropdownModule } from 'ng2-bootstrap/ng2-bootstrap';
-import { PolymerElement } from '@vaadin/angular2-polymer';
 import { ToasterModule, ToasterService } from 'angular2-toaster/angular2-toaster';
 
 import { AppComponent } from './app.component';
@@ -24,7 +23,6 @@ import { DemoComponent } from './components/demo/demo.component';
     StatusComponent,
     AlarmComponent,
     AlarmsComponent,
-    PolymerElement('paper-toast'),
     DemoComponent
   ],
   imports: [
@@ -38,7 +36,7 @@ import { DemoComponent } from './components/demo/demo.component';
   ],
   providers: [ConfigService, AlarmStore, ToasterService],
   entryComponents: [AlarmsComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
