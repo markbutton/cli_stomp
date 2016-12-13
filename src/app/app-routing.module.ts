@@ -1,13 +1,13 @@
 import { NgModule }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { DemoComponent }      from './components/demo/demo.component';
+import { ContactComponent }      from './components/contact/contact.component';
 import { AlertsComponent }   from './components/alerts/alerts.component';
 
 const routes: Routes = [
     {
-        path: 'demo',
-        component: DemoComponent
+        path: 'alerts',
+        component: AlertsComponent
     },
     {
         path: '',
@@ -15,8 +15,8 @@ const routes: Routes = [
         pathMatch: 'full'
     },
     {
-        path: 'alerts',
-        component: AlertsComponent
+        path: 'contacts',
+        component: ContactComponent
     },
 ];
 
@@ -26,4 +26,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 
-export const routedComponents = [AlertsComponent, DemoComponent];
+export const routedComponents = [AlertsComponent, ContactComponent];

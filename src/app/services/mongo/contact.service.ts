@@ -25,7 +25,7 @@ export class ContactService {
   }
 
   deleteContact(contact): Observable<any> {
-    return this.http.delete(`/cat/${contact._id}`, this.options);
+    return this.http.delete(`/contact/${contact._id}`, this.options);
   }
 
 }

@@ -1,0 +1,28 @@
+.app-content {
+    padding: 10px 0 10px 0;
+}
+
+.app-content md-card {
+    margin-bottom: 10px;
+}
+
+.card-logo, .card-spacer, .card-button {
+    display: table-cell;
+}
+
+.card-right {
+    float: right;
+}
+
+.app-header {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0, 10px, 0, 10px;
+}
+
+.app-spinner {
+  height: 20px;
+  width: 20px;
+  display: inline-block;
+}

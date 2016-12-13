@@ -18,9 +18,10 @@ export class ContactComponent implements OnInit {
   private isEditing = false;
 
   private addContactForm: FormGroup;
-  private name = new FormControl('', Validators.required);
-  private age = new FormControl('', Validators.required);
-  private weight = new FormControl('', Validators.required);
+  private firstName = new FormControl('', Validators.required);
+  private lastName = new FormControl('', Validators.required);
+  private phoneNumber = new FormControl('', Validators.required);
+  private address = new FormControl('', Validators.required);
 
   constructor(private http: Http,
               private contactService: ContactService,
@@ -30,9 +31,10 @@ export class ContactComponent implements OnInit {
     this.getContacts();
 
     this.addContactForm = this.formBuilder.group({
-      name: this.name,
-      age: this.age,
-      weight: this.weight
+      firstName: this.firstName,
+      lastName: this.lastName,
+      phoneNumber: this.phoneNumber,
+      address: this.address
     });
   }
 

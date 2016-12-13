@@ -45,7 +45,7 @@
   font-size: small;
   color: white;
   padding: 0.5em 0.7em 0 0.5em;
-  background-color: #660099;
+  background-color: #5c6bc0;
   line-height: 1em;
   position: relative;
   left: 0px;
@@ -59,7 +59,7 @@ button.delete-button {
   float:right;
   font-family: Arial;
   background-color: #eee;
-  background-color: #FF6600;
+  background-color: #ffd54f;
   color:white;
   border: none;
   padding: 5px 10px;

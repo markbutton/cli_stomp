@@ -1,3 +1,93 @@
-<p>
-  contact works!
-</p>
+<toaster-container></toaster-container>
+
+<div class="app-content" [class.dark-theme]="isDarkTheme">
+
+  <md-card>
+    <h2 class="app-header">Mongo DB Example App</h2>
+  </md-card>
+
+  <md-card>
+    <h2 class="app-header">Contacts</h2>
+    <div class="card-right" *ngIf="isLoading">Loading...
+      <md-spinner color="accent" class="app-spinner"></md-spinner>
+    </div>
+  </md-card>
+
+<md-card *ngIf="!isLoading">
+  <h4 class="card-header">Current contacts ({{contacts.length}})</h4>
+  <div class="card-block">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-default">
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Phone Number</th>
+          <th>Address</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="contacts.length === 0">
+        <tr>
+          <td colspan="4">There are no contacts in the DB. Add a new contact below.</td>
+        </tr>  
+      </tbody>
+      <tbody *ngIf="!isEditing">
+        <tr *ngFor="let contact of contacts">
+          <td>{{contact.firstName}}</td>
+          <td>{{contact.lastName}}</td>
+          <td>{{contact.phoneNumber}}</td>
+          <td>{{contact.address}}</td>
+          <td>
+            <button class="btn btn-sm btn-warning" (click)="enableEditing(contact)"><i class="fa fa-pencil"></i> Edit</button> 
+            <button class="btn btn-sm btn-danger" (click)="deleteContact(contact)"><i class="fa fa-trash"></i> Delete</button>
+          </td>
+        </tr>  
+      </tbody>
+      <tbody *ngIf="isEditing">
+        <tr>
+          <td colspan="4">
+            <form class="form-inline" #form="ngForm" (ngSubmit)="editContact(contact)" style="display:inline">
+              <div class="form-group">
+                  <input class="form-control" type="text" name="firstName" [(ngModel)]="contact.firstName" placeholder="First Name" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="lastName" [(ngModel)]="contact.lastName" placeholder="Last Name" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="number" name="phoneNumber" [(ngModel)]="contact.phoneNumber" placeholder="Phone Number" step="any" min="0" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="address" [(ngModel)]="contact.address" placeholder="Address" required>
+              </div>
+              <button class="btn btn-sm btn-primary" type="submit" [disabled]="!form.form.valid"><i class="fa fa-floppy-o"></i> Save</button>
+            </form>
+            <button class="btn btn-sm btn-warning" (click)="cancelEditing()"><i class="fa fa-times"></i> Cancel</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</md-card>
+
+<md-card *ngIf="!isEditing">
+  <h4 class="card-header">Add new contact</h4>
+  <div class="card-block">
+    <form class="form-inline" [formGroup]="addContactForm" (ngSubmit)="addContact()" style="text-align:center">
+      <div class="form-group">
+          <input class="form-control" type="text" name="firstName" formControlName="firstName" placeholder="First Name">
+      </div>
+      <div class="form-group">
+          <input class="form-control" type="text" name="lastName" formControlName="lastName" placeholder="Last Name">
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="number" name="phoneNumber" formControlName="phoneNumber" placeholder="Phone Number" min="0">
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="address" formControlName="address" placeholder="Address">
+      </div>
+      <button class="btn btn-primary" type="submit" [disabled]="!addContactForm.valid"><i class="fa fa-floppy-o"></i> Add</button>
+    </form>
+  </div>
+</md-card>
+
+</div>
