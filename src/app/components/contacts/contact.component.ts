@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
-import { FormGroup, FormControl, Validators, FormBuilder }  from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
+import { Toast } from '../../models/toast';
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
 import { ContactService } from '../../services/mongo/contact.service';
 import { Contact } from '../../models/contact';
@@ -17,6 +18,7 @@ export class ContactComponent implements OnInit {
 
   private contact = {};
   private isEditing = false;
+  private toast: Toast;
 
   private addContactForm: FormGroup;
   private firstName = new FormControl('', Validators.required);
@@ -25,8 +27,9 @@ export class ContactComponent implements OnInit {
   private address = new FormControl('', Validators.required);
 
   constructor(private http: Http,
-              private contactService: ContactService,
-              private formBuilder: FormBuilder) { }
+    private contactService: ContactService,
+    private formBuilder: FormBuilder,
+    private _toasterService: ToasterService) { }
 
   ngOnInit() {
     this.getContacts();
@@ -53,7 +56,10 @@ export class ContactComponent implements OnInit {
         let newContact = res.toString; // .json();
         this.contacts.push(newContact);
         this.addContactForm.reset();
-        // this.toast.setMessage("item added successfully.", "success");
+        this.toast.type = 'success';
+        this.toast.title = 'Success';
+        this.toast.message = 'item added successfully.';
+        this.popToast(this.toast);
       },
       error => console.log(error)
     );
@@ -67,7 +73,11 @@ export class ContactComponent implements OnInit {
   cancelEditing() {
     this.isEditing = false;
     this.contact = {};
-    // this.toast.setMessage("item editing cancelled.", "warning");
+    this.toast.type = 'warning';
+    this.toast.title = 'warning';
+    this.toast.message = 'item editing cancelled.';
+    this.popToast(this.toast);
+
     // reload the contacts to reset the editing
     this.getContacts();
   }
@@ -77,23 +87,34 @@ export class ContactComponent implements OnInit {
       res => {
         this.isEditing = false;
         this.contact = contact;
-        // this.toast.setMessage("item edited successfully.", "success");
+        this.toast.type = 'success';
+        this.toast.title = 'Success';
+        this.toast.message = 'item edited successfully.';
+        this.popToast(this.toast);
       },
       error => console.log(error)
     );
   }
 
   deleteContact(contact) {
-    if(window.confirm('Are you sure you want to permanently delete this item?')) {
+    if (window.confirm('Are you sure you want to permanently delete this item?')) {
       this.contactService.deleteContact(contact).subscribe(
         res => {
           let pos = this.contacts.map(contact => { return contact._id }).indexOf(contact._id);
           this.contacts.splice(pos, 1);
-          // this.toast.setMessage("item deleted successfully.", "success");
+          this.toast.type = 'success';
+          this.toast.title = 'Success';
+          this.toast.message = 'item deleted successfully.';
+          this.popToast(this.toast);
         },
         error => console.log(error)
       );
     }
+  }
+
+  /* Open the alert with a toaster */
+  public popToast(toast: Toast): void {
+    this._toasterService.pop(toast.type, toast.title, toast.message);
   }
 
 }

@@ -26,3 +26,13 @@
   width: 20px;
   display: inline-block;
 }
+
+.badge{
+  position:absolute;
+  border-radius:444px;
+  color: white;
+  background:rgba(255,0,0,.80);
+  top: 15px;
+  height: 20px;
+  background-repeat: no-repeat;
+}

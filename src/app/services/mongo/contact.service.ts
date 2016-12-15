@@ -48,8 +48,4 @@ export class ContactService {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  //deleteContact(contact): Observable<any> {
-  // return this.http.delete(`/contact/${contact._id}`, this.options);
-  //}
-
 }
