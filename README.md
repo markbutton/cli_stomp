@@ -7,8 +7,8 @@ These Demo apps consume Angular Material 2 components. Built with the [angular-c
 Check out this project for more information on Material2 Design https://github.com/jelbourn/material2-app
 
 # Rest API Prototype
-Simple Contact app that consumes a seperate NodeJS, ExpressJS and MongoDB (MEAN STACK) backend.  
-Built with the express-cli. The node-mongo project is also required to run this demo application.
+Simple contact app that consumes a seperate NodeJS, ExpressJS and MongoDB (MEAN STACK) backend.  
+Built with the express-cli. The node-mongo project is also required to run this demo application
 https://github.com/markbutton/node-mongo
 
 # STOMP Websocket Protoype
@@ -30,7 +30,7 @@ which use the Observable type to data-bind messages to the DOM.
 > and a message broker supporting STOMP, the Simple Text Oriented 
 > Messaging Protocol. This example was built using [ActiveMQ WebSTOMP](http://activemq.apache.org/)
 > but other brokers will also work. 
-> The contact example requires the [node-mongo](https://github.com/markbutton/node-mongo)
+> The contact example requires the [node-mongo](https://github.com/markbutton/node-mongo) backend.
 
 To get started running this app locally (assuming you've already got angular-cli):
 
@@ -73,11 +73,11 @@ The source is located under the `app` folder:
 │   │   │   ├── contacts                         * Contact Components for REST Demo
 │   │   │   ├── demo                             * Material 2 Design Demo
 │   │   │   └── status                           * STOMP Status component folder
-│	│ 	│  
-│	│	├── models								 * Example data models  
+│   │   │  
+│   │   ├── models                               * Example data models  
 │   │   │
 │   │   ├── services                             * Services folder
-│	│	│	├── config							 * Config service folder (retrieves the configuration)
+│   │   │   ├── config                           * Config service folder (retrieves the configuration)
 │   │   │   ├── mongo                            * Config service folder (retrieves the configuration)
 │   │   │   └── stomp                            * STOMP service folder (ng2 definition for a STOMP configuration)
 │   │   │
@@ -93,7 +93,7 @@ The source is located under the `app` folder:
 │   ├── assets                                   * Assets folder
 │   │   └── .gitkeep                             * Placeholder to include the folder to source control
 │   │
-│	├── data                                     * Mock Data Objects
+│   ├── data                                     * Mock Data Objects
 │   │
 │   ├── environments                             * Environment settings folder
 │   │   ├── environment.prod.ts                  * Production environment settings
