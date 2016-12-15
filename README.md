@@ -2,30 +2,35 @@
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.20-4.
 
+# Material2 Design
+These Demo apps consume Angular Material 2 components. Built with the [angular-cli](https://github.com/angular/angular-cli).
+Check out this project for more information on Material2 Design https://github.com/jelbourn/material2-app
 
-# Material2 Prototype
-Simple app that consumes Angular Material 2 components. Built with the angular-cli.
-https://github.com/jelbourn/material2-app
+# Rest API Prototype
+Simple Contact app that consumes a seperate NodeJS, ExpressJS and MongoDB (MEAN STACK) backend.  
+Built with the express-cli. The node-mongo project is also required to run this demo application.
+https://github.com/markbutton/node-mongo
 
-# STOMP.js Protoype
+# STOMP Websocket Protoype
 
 > A demo application using [Angular 2](https://github.com/angular/angular) in
-[Typescript](https://github.com/Microsoft/TypeScript) and [STOMP.js](https://github.com/jmesnil/stomp-websocket),
+> [Typescript](https://github.com/Microsoft/TypeScript) and [STOMP.js](https://github.com/jmesnil/stomp-websocket),
 > generated with [angular-cli](https://github.com/angular/angular-cli).
 
-This demo app implements a more ng2-faithful way of connecting to a message 
-queue and subscribing to messages from a STOMP topic. Uses the Typescript 
-interface definition for Jeff Mesnil's excellent STOMP.js JavaScript library,
-a STOMPService which subscribes to messages, and an example 'raw data' 
-component which uses the Observable type to data-bind messages to the DOM.
+This demo app contrasts the request/response model and implements an observer pattern.
+It demonstrates a reliable way of connecting to a message queue and subscribing to messages 
+from a STOMP topic and how Angular2 itself can subscribe to model changes. It uses the Typescript 
+interface definition from Jeff Mesnil's excellent STOMP.js JavaScript library. It features a 
+STOMPService which subscribes to messages, and an example toaster component and an alert component 
+which use the Observable type to data-bind messages to the DOM.
 
 ## Quick Start 
 
 > As well as the following, you will also need the [angular-cli](https://github.com/angular/angular-cli) 
 > and a message broker supporting STOMP, the Simple Text Oriented 
 > Messaging Protocol. This example was built using [ActiveMQ WebSTOMP](http://activemq.apache.org/)
-> but other brokers will also work. (Shameless self-plug: if you want SSL with
-> your RabbitMQ socks, you might want to read [my blog post](https://mb.in/wp/?p=86)
+> but other brokers will also work. 
+> The contact example requires the [node-mongo](https://github.com/markbutton/node-mongo)
 
 To get started running this app locally (assuming you've already got angular-cli):
 
@@ -64,18 +69,19 @@ The source is located under the `app` folder:
 │   │
 │   ├── app                                      * Application folder
 │   │   ├── components                           * Components folder
-│   │   │   ├── alarm                         	 * Dumb Alarm Component with M2D Icon and badge
-│	│	│	├── alarm-sender					 * Dumb Alarm Sender Compoenent to publish mock alert
-│	│	│	├── alarms							 * STOMP Main Application Component with observable example
-│	│	│	├── demo							 * Material 2 Design Demo
+│   │   │   ├── alerts                           * Alert Components for STOMP Demo
+│   │   │   ├── contacts                         * Contact Components for REST Demo
+│   │   │   ├── demo                             * Material 2 Design Demo
 │   │   │   └── status                           * STOMP Status component folder
 │	│ 	│  
 │	│	├── models								 * Example data models  
 │   │   │
 │   │   ├── services                             * Services folder
-│	│	│	├── alarm							 * Example observable model for alarm counts
-│   │   │   ├── config                           * Config service folder (retrieves the configuration)
+│	│	│	├── config							 * Config service folder (retrieves the configuration)
+│   │   │   ├── mongo                            * Config service folder (retrieves the configuration)
 │   │   │   └── stomp                            * STOMP service folder (ng2 definition for a STOMP configuration)
+│   │   │
+│   │   ├── store                                * Local observable data stores
 │   │   │
 │   │   ├── app.component.css                    * Component css file
 │   │   ├── app.component.html                   * Component html file
@@ -86,18 +92,18 @@ The source is located under the `app` folder:
 │   │
 │   ├── assets                                   * Assets folder
 │   │   └── .gitkeep                             * Placeholder to include the folder to source control
-│	│
-│	├── data									 * Mock Data Objects
+│   │
+│	├── data                                     * Mock Data Objects
 │   │
 │   ├── environments                             * Environment settings folder
 │   │   ├── environment.prod.ts                  * Production environment settings
 │   │   └── environment.ts                       * Development environment settings
-│	│
-│	├── scripts									 * AOT script
+│   │
+│   ├── scripts                                  * AOT script
 │   │
 │   ├── index.html                               * The root page served to browser
 │   ├── main.ts                                  * App bootstrap
-│	├── stomp-theme.scss						 * Main css for Material 2 Design	
+│   ├── stomp-theme.scss                         * Main css for Material 2 Design	
 │   ├── styles.css                               * Main css file
 │   ├── tsconfig.json                            * Typescript transpiler options 
 │   └── typings.d.ts                             * Typescript typings definition file
