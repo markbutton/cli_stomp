@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators, FormBuilder }  from '@angular/forms
 
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
 import { ContactService } from '../../services/mongo/contact.service';
+import { Contact } from '../../models/contact';
 
 @Component({
   selector: 'app-contact',
@@ -49,7 +50,7 @@ export class ContactComponent implements OnInit {
   addContact() {
     this.contactService.addContact(this.addContactForm.value).subscribe(
       res => {
-        let newContact = res.json();
+        let newContact = res.toString; // .json();
         this.contacts.push(newContact);
         this.addContactForm.reset();
         // this.toast.setMessage("item added successfully.", "success");

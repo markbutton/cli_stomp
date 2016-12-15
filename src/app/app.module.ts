@@ -15,7 +15,7 @@ import { AlertsComponent } from './components/alerts/alerts.component';
 import { ConfigService } from './services/config/config.service';
 import { AlertStore } from './store/alert.store';
 import { DemoComponent } from './components/demo/demo.component';
-import { ContactComponent } from './components/contact/contact.component';
+import { ContactComponent } from './components/contacts/contact.component';
 import { ContactService } from './services/mongo/contact.service';
 
 @NgModule({

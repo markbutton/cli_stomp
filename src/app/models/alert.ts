@@ -1,6 +1,8 @@
 export class Alert {
-  id: number;
-  type: string;
-  title: string;
-  message: string;
+  constructor(
+    public id: number,
+    public type: string,
+    public title: string,
+    public message: string
+  ) { }
 }
