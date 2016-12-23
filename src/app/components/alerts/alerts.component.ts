@@ -18,13 +18,13 @@ import { ConfigService } from '../../services/config/config.service';
 export class AlertsComponent implements OnInit, OnDestroy {
 
   // Stream of messages
-  public messages: Observable<Message>;
+  private messages: Observable<Message>;
 
-  // Stream of count
-  public alerts: Observable<any>;
+  // Stream of alerts
+  private alerts: Observable<any>;
 
   // Selected alert
-  public selectedAlert: Alert;
+  private selectedAlert: Alert;
 
   // Local alert variable
   private _alert: Alert;
@@ -81,7 +81,7 @@ export class AlertsComponent implements OnInit, OnDestroy {
   }
 
   /* Open the alert with a toaster */
-  public popToast(alert: Alert): void {
+  private popToast(alert: Alert): void {
     this._toasterService.pop(alert.type, alert.title, alert.message);
   }
 

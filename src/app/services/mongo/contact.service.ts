@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Http, Headers, RequestOptions, Response, URLSearchParams } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-
+import { List } from 'immutable';
 import { Contact } from '../../models/contact';
 
 @Injectable()
@@ -18,32 +18,32 @@ export class ContactService {
   constructor(private http: Http) { }
 
   // get all contacts
-  getContacts(): Observable<Contact[]> {
+  getContacts() {
     return this.http.get(this.contactsUrl).map(res => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   // Add a new contact
-  addContact(contact: Contact): Observable<Contact[]> {
-    let contactString = JSON.stringify(contact);
+  addContact(newContact: Contact): Observable<any> {
+    let contactString = JSON.stringify(newContact);
 
-    return this.http.post(this.contactsUrl, contactString, this.options)
+    return this.http.post(this.contactsUrl, contactString, this.options).share()
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   // Update a comment
-  editContact(contact: Contact): Observable<Contact[]> {
-    let contactString = JSON.stringify(contact);
+  editContact(updatedContact: Contact): Observable<List<Contact>> {
+    let contactString = JSON.stringify(updatedContact);
 
-    return this.http.put(`${this.contactsUrl}/${contact['_id']}`, contactString, this.options)
+    return this.http.put(`${this.contactsUrl}/${updatedContact['_id']}`, contactString, this.options).share()
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   // Delete a comment
-  deleteContact(contact: Contact): Observable<Contact[]> {
-    return this.http.delete(`${this.contactsUrl}/${contact['_id']}`)
+  deleteContact(deletedContact: Contact) {
+    return this.http.delete(`${this.contactsUrl}/${deletedContact['_id']}`).share()
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }

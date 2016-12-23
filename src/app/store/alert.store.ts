@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
 import {List} from 'immutable';
 
 import { Alert } from '../models/alert';
 
 @Injectable()
 export class AlertStore {
-    private _alerts: BehaviorSubject<List<any>> = new BehaviorSubject( List([]) );
+    private _alerts: BehaviorSubject<List<Alert>> = new BehaviorSubject( List([]) );
 
     get alerts() {
         return this._alerts;

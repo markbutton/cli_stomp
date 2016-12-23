@@ -1,23 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Http } from '@angular/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+import { List } from 'immutable';
 
 import { Toast } from '../../models/toast';
 import { ToasterService } from 'angular2-toaster/angular2-toaster';
-import { ContactService } from '../../services/mongo/contact.service';
+import { ContactStore } from '../../store/contact.store';
 import { Contact } from '../../models/contact';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css']
+  styleUrls: ['./contact.component.css'],
+  providers: [ContactStore],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactComponent implements OnInit {
-  private contacts = [];
-  private isLoading = true;
+  // Stream of contacts
+  private contacts: Observable<List<Contact>>;
+  private contact: Contact;
 
-  private contact = {};
+  // TODO: Refactor to state controller
+  private isLoading = true;
   private isEditing = false;
+  // TODO: Create seperate toaster controller and observable store
   private toast: Toast;
 
   private addContactForm: FormGroup;
@@ -27,12 +34,15 @@ export class ContactComponent implements OnInit {
   private address = new FormControl('', Validators.required);
 
   constructor(private http: Http,
-    private contactService: ContactService,
     private formBuilder: FormBuilder,
-    private _toasterService: ToasterService) { }
+    private _toasterService: ToasterService,
+    private contactStore: ContactStore) { }
 
   ngOnInit() {
-    this.getContacts();
+    // Subscribe to the Model
+    this.contacts = this.contactStore.contacts;
+    this.isLoading = false;
+    // this.getContacts();
 
     this.addContactForm = this.formBuilder.group({
       firstName: this.firstName,
@@ -42,29 +52,6 @@ export class ContactComponent implements OnInit {
     });
   }
 
-  getContacts() {
-    this.contactService.getContacts().subscribe(
-      data => this.contacts = data,
-      error => console.log(error),
-      () => this.isLoading = false
-    );
-  }
-
-  addContact() {
-    this.contactService.addContact(this.addContactForm.value).subscribe(
-      res => {
-        let newContact = res.toString; // .json();
-        this.contacts.push(newContact);
-        this.addContactForm.reset();
-        this.toast.type = 'success';
-        this.toast.title = 'Success';
-        this.toast.message = 'item added successfully.';
-        this.popToast(this.toast);
-      },
-      error => console.log(error)
-    );
-  }
-
   enableEditing(contact) {
     this.isEditing = true;
     this.contact = contact;
@@ -72,49 +59,22 @@ export class ContactComponent implements OnInit {
 
   cancelEditing() {
     this.isEditing = false;
-    this.contact = {};
-    this.toast.type = 'warning';
-    this.toast.title = 'warning';
-    this.toast.message = 'item editing cancelled.';
-    this.popToast(this.toast);
+  }
 
-    // reload the contacts to reset the editing
-    this.getContacts();
+  addContact() {
+    this.contactStore.addContact(this.addContactForm.value);
+    this.addContactForm.reset();
   }
 
   editContact(contact) {
-    this.contactService.editContact(contact).subscribe(
-      res => {
-        this.isEditing = false;
-        this.contact = contact;
-        this.toast.type = 'success';
-        this.toast.title = 'Success';
-        this.toast.message = 'item edited successfully.';
-        this.popToast(this.toast);
-      },
-      error => console.log(error)
-    );
+    this.contactStore.editContact(contact);
+    this.isEditing = false;
   }
 
   deleteContact(contact) {
     if (window.confirm('Are you sure you want to permanently delete this item?')) {
-      this.contactService.deleteContact(contact).subscribe(
-        res => {
-          let pos = this.contacts.map(contact => { return contact._id }).indexOf(contact._id);
-          this.contacts.splice(pos, 1);
-          this.toast.type = 'success';
-          this.toast.title = 'Success';
-          this.toast.message = 'item deleted successfully.';
-          this.popToast(this.toast);
-        },
-        error => console.log(error)
-      );
+      this.contactStore.deleteContact(contact);
     }
-  }
-
-  /* Open the alert with a toaster */
-  public popToast(toast: Toast): void {
-    this._toasterService.pop(toast.type, toast.title, toast.message);
   }
 
 }
