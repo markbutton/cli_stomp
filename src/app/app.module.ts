@@ -17,6 +17,7 @@ import { AlertStore } from './store/alert.store';
 import { DemoComponent } from './components/demo/demo.component';
 import { ContactComponent } from './components/contacts/contact.component';
 import { ContactService } from './services/mongo/contact.service';
+import { STOMPService } from './services/stomp/stomp.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { ContactService } from './services/mongo/contact.service';
     MaterialModule.forRoot(),
     ToasterModule
   ],
-  providers: [ConfigService, AlertStore, ToasterService, ContactService],
+  providers: [ConfigService, AlertStore, ToasterService, ContactService, STOMPService],
   entryComponents: [AlertsComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

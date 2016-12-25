@@ -4,10 +4,10 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { Observable } from 'rxjs/Observable';
 import { List } from 'immutable';
 
-import { Toast } from '../../models/toast';
-import { ToasterService } from 'angular2-toaster/angular2-toaster';
 import { ContactStore } from '../../store/contact.store';
 import { Contact } from '../../models/contact';
+import { Alert } from '../../models/alert';
+import { AlertStore } from '../../store/alert.store';
 
 @Component({
   selector: 'app-contact',
@@ -24,8 +24,6 @@ export class ContactComponent implements OnInit {
   // TODO: Refactor to state controller
   private isLoading = true;
   private isEditing = false;
-  // TODO: Create seperate toaster controller and observable store
-  private toast: Toast;
 
   private addContactForm: FormGroup;
   private firstName = new FormControl('', Validators.required);
@@ -35,8 +33,8 @@ export class ContactComponent implements OnInit {
 
   constructor(private http: Http,
     private formBuilder: FormBuilder,
-    private _toasterService: ToasterService,
-    private contactStore: ContactStore) { }
+    private contactStore: ContactStore,
+    private alertStore: AlertStore) { }
 
   ngOnInit() {
     // Subscribe to the Model
@@ -64,16 +62,22 @@ export class ContactComponent implements OnInit {
   addContact() {
     this.contactStore.addContact(this.addContactForm.value);
     this.addContactForm.reset();
+    let alert: Alert = new Alert(this.alertStore.getAlertId(), 'success', 'Success', 'The contact has been added');
+    this.alertStore.sendAlert(alert);
   }
 
   editContact(contact) {
     this.contactStore.editContact(contact);
     this.isEditing = false;
+    let alert: Alert = new Alert(this.alertStore.getAlertId(), 'success', 'Success', 'The contact has been saved');
+    this.alertStore.sendAlert(alert);
   }
 
   deleteContact(contact) {
     if (window.confirm('Are you sure you want to permanently delete this item?')) {
       this.contactStore.deleteContact(contact);
+      let alert: Alert = new Alert(this.alertStore.getAlertId(), 'success', 'Success', 'The contact has been deleted');
+      this.alertStore.sendAlert(alert);
     }
   }
 

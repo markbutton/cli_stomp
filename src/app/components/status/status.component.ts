@@ -1,26 +1,23 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { STOMPService, STOMPState } from '../../services/stomp';
+import { AlertStore } from '../../store/alert.store';
 
 @Component({
   selector: 'app-status',
   templateUrl: './status.component.html',
-  styleUrls: ['./status.component.css']
+  styleUrls: ['./status.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StatusComponent implements OnInit, OnDestroy {
+export class StatusComponent implements OnInit {
 
   private state: Observable<string>;
 
   /** Constructor */
-  constructor(private _stompService: STOMPService) { }
+  constructor(private _alertStore: AlertStore) { }
 
-  ngOnInit() {
-    console.log('Status init');
-    this.state = this._stompService.state
-      .map((state: number) => STOMPState[state]);
+    ngOnInit() {
+    // Subscribe to the Model
+    this.state = this._alertStore.state;
   }
 
-    ngOnDestroy() {
-    this._stompService.disconnect();
-  }
 }

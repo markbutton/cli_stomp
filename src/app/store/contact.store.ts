@@ -8,16 +8,17 @@ import { ContactService } from '../services/mongo/contact.service';
 
 @Injectable()
 export class ContactStore {
+    // Stream of observable contacts
     private _contacts: BehaviorSubject<List<Contact>> = new BehaviorSubject(List([]));
-
     public contacts: Observable<List<Contact>> = this._contacts.asObservable();
 
+    /** Constructor load initial data from MONGO **/
     constructor(private contactService: ContactService) {
         this.loadInitialData();
     }
 
     private loadInitialData() {
-
+        // Get contacts and subscribe
         this.contactService.getContacts()
             .subscribe(
             res => {
@@ -29,8 +30,6 @@ export class ContactStore {
     }
 
     public addContact(newContact: Contact): Observable<any> {
-        // log call to addContact
-        console.log('contactStore addContact method called');
         // create an observable variable
         let obs: Observable<any> = this.contactService.addContact(newContact);
         // subscribe to the observable handle response and error
@@ -49,8 +48,6 @@ export class ContactStore {
     }
 
     public editContact(updatedContact: Contact): Observable<any> {
-        // log call to editContact
-        console.log('contactStore editContact method called');
         // create an observable variable
         let obs: Observable<any> = this.contactService.editContact(updatedContact);
         // subscribe to the observable handle response and error
@@ -71,8 +68,6 @@ export class ContactStore {
     }
 
     public deleteContact(deletedContact: Contact): Observable<any> {
-        // log call to deleteContact 
-        console.log('contactStore deleteContact method called');
         // create an observable variable
         let obs: Observable<any> = this.contactService.deleteContact(deletedContact);
         // subscribe to the observable handle response and error

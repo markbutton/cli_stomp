@@ -8,7 +8,7 @@
   <ul class="alerts" dropdownMenu role="menu" >
         <li  role="menuitem" *ngFor="let alert of _alertStore.alerts | async" (click)="onSelect(alert)" [class.selected]="alert === selectedAlert">
           <span class="alert-element">
-            <span class="badge">{{alert.id}}</span> {{alert.title}}
+             {{alert.title}}
           </span>
           <button class="delete-button" (click)="deleteAlert(alert, $event)">Delete</button>
         </li>
