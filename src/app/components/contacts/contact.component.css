@@ -8,6 +8,7 @@
 
 .card-logo, .card-spacer, .card-button {
     display: table-cell;
+    color: white;
 }
 
 .card-right {
@@ -27,7 +28,7 @@
   display: inline-block;
 }
 
-.badge{
+.badge {
   position:absolute;
   border-radius:444px;
   color: white;
@@ -35,4 +36,8 @@
   top: 15px;
   height: 20px;
   background-repeat: no-repeat;
+}
+
+.button {
+    color: white;
 }

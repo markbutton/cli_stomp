@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ContactComponent }      from './components/contacts/contact.component';
 import { AlertsComponent }   from './components/alerts/alerts.component';
+import { FeedComponent }  from './components/feed/feed.component';
 
 const routes: Routes = [
     {
@@ -18,6 +19,9 @@ const routes: Routes = [
         path: 'contacts',
         component: ContactComponent
     },
+    {   path: 'feed',
+        component: FeedComponent
+    },
 ];
 
 @NgModule({
@@ -26,4 +30,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 
-export const routedComponents = [AlertsComponent, ContactComponent];
+export const routedComponents = [AlertsComponent, ContactComponent, FeedComponent];

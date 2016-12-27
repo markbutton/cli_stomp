@@ -1,0 +1,15 @@
+<div class="app-content" [class.dark-theme]="isDarkTheme">
+
+  <md-card>
+    <h2 class="app-header">RSS Example App</h2>
+  </md-card>
+
+<div *ngFor="let feed of feeds">
+    <md-card (click)="openLinkInBrowser(feed.link)">
+      <md-card-title>{{feed.title}}</md-card-title>
+      <md-card-subtitle>{{feed.author}} - {{feed.pubDate | date:'dd-MM-yyyy'}}</md-card-subtitle>
+      <md-card-content>{{feed.description | stripHtmlTags}}</md-card-content>
+    </md-card>
+</div>
+
+</div>

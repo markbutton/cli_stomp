@@ -16,7 +16,6 @@ export class DemoComponent {
     {name: 'French fries', rating: 'Pretty good'},
   ];
 
-
   progress: number = 0;
 
   constructor(private _dialog: MdDialog, private _snackbar: MdSnackBar) {

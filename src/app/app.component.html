@@ -1,7 +1,8 @@
 <toaster-container></toaster-container>
+
 <div [class.m2app-dark]="isDarkTheme">
   <md-toolbar color="primary">
-    <button class="app-icon-button">
+    <button class="app-icon-button" [md-menu-trigger-for]="menu">
       <i class="material-icons app-toolbar-menu">menu</i>
     </button> {{title}}
 
@@ -11,6 +12,12 @@
 
     <button md-button (click)="isDarkTheme = !isDarkTheme">THEME</button>
   </md-toolbar>
+
+  <md-menu #menu="mdMenu">
+    <button md-menu-item routerLink="/alerts" routerLinkActive="active">ALERTS DEMO</button>
+    <button md-menu-item routerLink="/contacts" routerLinkActive="active">CONTACT DEMO</button>
+    <button md-menu-item routerLink="/feed" routerLinkActive="active">RSS DEMO</button>
+  </md-menu>
 
   <md-card>
     <div class="card-container">
@@ -23,6 +30,7 @@
       <div class="card-button">
         <button md-raised-button color="accent" routerLink="/alerts" routerLinkActive="active">ALERTS DEMO</button>
         <button md-raised-button color="accent" routerLink="/contacts" routerLinkActive="active">CONTACT DEMO</button>
+        <button md-raised-button color="accent" routerLink="/feed" routerLinkActive="active">RSS DEMO</button>
       </div>
     </div>
   </md-card>

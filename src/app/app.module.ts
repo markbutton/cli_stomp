@@ -8,26 +8,34 @@ import { DropdownModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { ToasterModule, ToasterService } from 'angular2-toaster/angular2-toaster';
 
 import { AppComponent } from './app.component';
-import { AlertSenderComponent } from './components/alerts/alert-sender.component';
-import { StatusComponent } from './components/status/status.component';
 import { AlertComponent } from './components/alerts/alert.component';
 import { AlertsComponent } from './components/alerts/alerts.component';
-import { ConfigService } from './services/config/config.service';
-import { AlertStore } from './store/alert.store';
-import { DemoComponent } from './components/demo/demo.component';
+import { AlertSenderComponent } from './components/alerts/alert-sender.component';
 import { ContactComponent } from './components/contacts/contact.component';
+import { DemoComponent } from './components/demo/demo.component';
+import { FeedComponent } from './components/feed/feed.component';
+import { StatusComponent } from './components/status/status.component';
+
+import { ConfigService } from './services/config/config.service';
 import { ContactService } from './services/mongo/contact.service';
+import { FeedService } from './services/rss/feed.service';
 import { STOMPService } from './services/stomp/stomp.service';
+
+import { AlertStore } from './store/alert.store';
+import { StripHtmlTagsPipe } from './pipe/strip-html-tags.pipe';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     AlertSenderComponent,
-    StatusComponent,
     AlertComponent,
     AlertsComponent,
     DemoComponent,
-    ContactComponent
+    ContactComponent,
+    FeedComponent,
+    StatusComponent,
+    StripHtmlTagsPipe
   ],
   imports: [
     BrowserModule,
@@ -39,7 +47,7 @@ import { STOMPService } from './services/stomp/stomp.service';
     MaterialModule.forRoot(),
     ToasterModule
   ],
-  providers: [ConfigService, AlertStore, ToasterService, ContactService, STOMPService],
+  providers: [ConfigService, AlertStore, ToasterService, ContactService, STOMPService, FeedService],
   entryComponents: [AlertsComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
