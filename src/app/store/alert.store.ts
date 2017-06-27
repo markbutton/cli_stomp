@@ -40,7 +40,7 @@ export class AlertStore {
     public connectStomp() {
         // Get configuration from config service...
         // Make sure this is only called once
-        this._configService.getConfig('api/config.json').then(
+        this._configService.getConfig('./api/config.json').then(
             config => {
                 // ... then pass it to (and connect) STOMP:
                 this._stompService.configure(config);

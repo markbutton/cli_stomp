@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response, URLSearchParams } from '@angular/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -32,7 +32,7 @@ export class ContactService {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  // Update a comment
+  // Update a contact
   editContact(updatedContact: Contact): Observable<List<Contact>> {
     let contactString = JSON.stringify(updatedContact);
 
@@ -41,7 +41,7 @@ export class ContactService {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  // Delete a comment
+  // Delete a contact
   deleteContact(deletedContact: Contact) {
     return this.http.delete(`${this.contactsUrl}/${deletedContact['_id']}`).share()
       .map((res: Response) => res.json())

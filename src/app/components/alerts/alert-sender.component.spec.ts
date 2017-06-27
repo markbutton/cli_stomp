@@ -7,6 +7,7 @@ import { HttpModule } from '@angular/http';
 import { StatusComponent } from '../../components/status/status.component';
 import { STOMPService } from '../../services/stomp';
 import { ConfigService } from '../../services/config/config.service';
+import { AlertSenderComponent } from './alert-sender.component';
 
 describe('AlertSenderComponent', () => {
   let component: AlertSenderComponent;
